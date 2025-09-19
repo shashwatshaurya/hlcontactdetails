@@ -1,0 +1,24 @@
+{
+  "folders": [
+    {
+      "name": "Contact",
+      "fileds": [
+        { "key": "firstName", "label": "First Name", "type": "text" },
+        { "key": "lastName", "label": "Last Name", "type": "text" },
+        { "key": "email", "label": "Email", "type": "email" },
+        { "key": "phone", "label": "Phone", "type": "phone" },
+        { "key": "address", "label": "Address", "type": "text" }
+      ]
+    },
+    {
+      "name": "Additional Info",
+      "fileds": [
+        { "key": "businessName", "label": "Business Name", "type": "text" },
+        { "key": "streetAddress", "label": "Street Address", "type": "text" },
+        { "key": "city", "label": "City", "type": "text" },
+        { "key": "owner", "label": "Owner", "type": "radio", "options": ["John Doe", "Jane Doe", "Liam Smith"] },
+        { "key": "followers", "label" : "Followers", "type": "multiselect" }
+      ]
+    }
+  ]
+}

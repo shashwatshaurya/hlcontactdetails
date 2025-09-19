@@ -1,0 +1,83 @@
+{
+  "layout": {
+    "header": {
+      "title": "HL Contact Details",
+      "logo": "https://www.hl.com/content/dam/hl/global/images/logo.svg",
+      "description": "This is the single route rendered at /.",
+      "links": [
+        {
+          "name": "Home",
+          "url": "/"
+        }
+      ]
+    },
+    "footer": {
+      "title": "HL Contact Details",
+      "description": "This is the single route rendered at /.",
+      "links": [
+        {
+          "name": "Home",
+          "url": "/"
+        }
+      ]
+    },
+    "sidebar": [
+      {
+        "name": "notes",
+        "props": {
+          "style": {}
+        },
+        "componentProps": {
+          "style": {
+            "border-radius": "12px",
+            "box-shadow": "0 2px 8px rgba(0, 0, 0, 0.06)"
+          }
+        },
+        "title": "Notes",
+        "icon": "icon-note",
+        "description": "This is where you see the notes",
+        "isActive": false
+      },
+      {
+        "name": "notes",
+        "props": {
+          "style": {}
+        },
+        "componentProps": {
+          "style": {
+            "border-radius": "12px",
+            "box-shadow": "0 2px 8px rgba(0, 0, 0, 0.06)"
+          }
+        },
+        "title": "Notes",
+        "icon": "icon-note",
+        "description": "This is where you see the notes",
+        "isActive": false
+      }
+    ],
+    "content": {
+      "style": {
+        "display": "flex",
+        "flex-direction": "row"
+      },
+      "children": [
+        {
+          "name": "contactDetails",
+          "props": {
+            "style": {
+              "border-radius": "12px"
+            }
+          }
+        },
+        {
+          "name": "connections",
+          "props": {
+            "style": {
+              "border-radius": "12px"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

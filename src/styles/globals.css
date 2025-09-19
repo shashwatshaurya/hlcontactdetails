@@ -1,0 +1,23 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Inter", sans-serif;
+}
+
+body {
+  background-color: var(--page-bg-color);
+}
+
+:root {
+  --page-bg-color: #e0e0e0eb;
+  --component-bg-color: #fff;
+  --border-color: #e6e9ef;
+  --muted-color: #6b7280;
+  --text-color: #111827;
+  --link-color: #1a73e8;
+  --header-border-color: #eef2f7;
+  --card-radius: 10px;
+  --font-size-large: 16px;
+  --font-size-small: 13px;
+}
