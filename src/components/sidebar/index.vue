@@ -12,7 +12,10 @@
           :class="{ active: item.key === activeKey }"
           @click="onClick(item.key)"
         >
-          <span class="hl-icon" v-html="item.svg"></span>
+          <span class="hl-icon">
+            <Icon v-if="item.icon" :icon="item.icon" width="18" height="18" />
+            <span v-else v-html="item.svg"></span>
+          </span>
         </button>
       </li>
     </ul>
@@ -21,9 +24,10 @@
 
 <script setup lang="ts">
 import { ref, computed } from "vue";
+import { Icon } from '@iconify/vue';
 
 const props = defineProps<{
-  items?: Array<{ title: string; svg: string; key?: string }>;
+  items?: Array<{ title: string; svg?: string; icon?: string; key?: string }>;
   activeKey?: string;
 }>();
 const emit = defineEmits<{
@@ -46,32 +50,33 @@ function onClick(key?: string) {
 
 <style scoped>
 .hl-sidebar {
-  position: fixed;
+  /* position: fixed; */
   right: 0;
   top: 0;
-  height: 100vh;
-  width: 72px;
+  height: 97vh;
+  width: 32px;
   background: transparent;
   border: none;
-  padding: 12px;
+  /* Remove horizontal padding to prevent visual misalignment with reserved aside width */
+  padding: 0;
   z-index: 50;
 }
 .hl-sidebar-list {
   list-style: none;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 12px;
   align-items: center;
   height: 100%;
   justify-content: start;
 }
 .hl-icon-btn {
-  width: 44px;
-  height: 44px;
+  width: 32px;
+  height: 32px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
+  border-radius: var(--component-radius);
   background: transparent;
   border: none;
   cursor: pointer;
@@ -79,11 +84,8 @@ function onClick(key?: string) {
 .hl-icon-btn .hl-icon svg {
   display: block;
 }
-.hl-icon-btn.active {
-  background: #fff;
-  box-shadow: 0 6px 14px rgba(37, 99, 235, 0.12);
-}
-.hl-icon-btn.active .hl-icon svg path {
-  stroke: #2563eb;
-}
+.hl-icon-btn.active { background: var(--component-bg-color); box-shadow: 0 6px 14px var(--shadow-primary-12); }
+.hl-icon { color: var(--muted-color); }
+.hl-icon-btn.active .hl-icon { color: var(--primary-color-600); }
+.hl-icon-btn.active .hl-icon svg path { stroke: var(--primary-color-600); }
 </style>

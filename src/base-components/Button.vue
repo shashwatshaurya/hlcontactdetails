@@ -24,7 +24,7 @@ export default defineComponent({
 <style scoped>
 .hl-button {
   border: none;
-  border-radius: 8px;
+  border-radius: var(--component-radius);
   cursor: pointer;
   font-weight: 600;
   padding: 8px 12px;
@@ -37,14 +37,8 @@ export default defineComponent({
   opacity: 0.6;
   cursor: not-allowed;
 }
-.hl-button--primary {
-  background: #1a73e8;
-  color: white;
-}
-.hl-button--secondary {
-  background: #e8f0fe;
-  color: #1a73e8;
-}
+.hl-button--primary { background: var(--primary-color); color: var(--color-white); }
+.hl-button--secondary { background: var(--primary-bg-soft); color: var(--primary-color); }
 .hl-button--md {
   font-size: 14px;
 }

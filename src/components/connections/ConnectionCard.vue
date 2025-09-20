@@ -1,5 +1,26 @@
 <template>
-  <HlCard :header="header" class="connection-card">
+  <HlCard class="connection-card">
+    <!-- @vue-ignore next-line: Volar can't infer slots from JS component -->
+    <template #left>
+      <span class="connection-card__subject">{{ header }}</span>
+    </template>
+
+    <!-- @vue-ignore next-line: Volar can't infer slots from JS component -->
+    <template #right>
+      <button class="icon-btn" aria-label="Open in new">
+        <Icon icon="mdi:arrow-top-right" width="18" height="18" />
+      </button>
+      <button class="icon-btn" aria-label="Star">
+        <Icon icon="mdi:star" width="18" height="18" :style="{ color: 'var(--amber-700)' }" />
+      </button>
+      <button class="icon-btn" aria-label="Reply" @click="$emit('reply')">
+        <Icon icon="mdi:reply" width="18" height="18" />
+      </button>
+      <button class="icon-btn" aria-label="More">
+        <Icon icon="mdi:dots-vertical" width="18" height="18" />
+      </button>
+    </template>
+
     <div class="connection-card__header">
       <HlAvatar :name="name" />
       <div class="connection-card__meta">
@@ -16,21 +37,23 @@
     </div>
 
     <div class="connection-card__actions">
-      <HlButton @click="$emit('reply')">Reply</HlButton>
+      <HlButton @click="$emit('reply')">
+        <Icon class="connection-card__reply-icon" icon="mdi:reply" width="18" height="18" />
+        <span>Reply</span>
+      </HlButton>
     </div>
   </HlCard>
 </template>
 
 <script lang="ts">
+// @vue-ignore-next-line - using named slots 'left' and 'right' provided by HlCard
 import { defineComponent } from "vue";
-import HlAvatar from "../../base-components/Avatar.vue";
-import HlButton from "../../base-components/Button.vue";
-import HlCard from "../../base-components/Card.vue";
-import HlTabs from "../../base-components/Tags.vue";
+import { Icon } from '@iconify/vue'
+import { HlAvatar, HlButton, HlCard } from "@/base-components";
 
 export default defineComponent({
   name: "ConnectionCard",
-  components: { HlAvatar, HlButton, HlCard, HlTabs },
+  components: { HlAvatar, HlButton, HlCard, Icon },
   props: {
     name: { type: String, required: true },
     title: { type: String, default: "" },
@@ -44,12 +67,16 @@ export default defineComponent({
 <style scoped>
 .connection-card {
   /* border: 1px solid var(--border-color);
-  border-radius: var(--card-radius);
+  border-radius: var(--component-radius);
   padding: 16px;
   background: var(--component-bg-color); */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px var(--shadow-06);
   /* max-width: 760px; */
   /* overflow: hidden; */
+}
+
+.connection-card__subject {
+  font-weight: 600;
 }
 
 .connection-card__header {
@@ -95,4 +122,16 @@ export default defineComponent({
 .connection-card__actions {
   margin-top: 8px;
 }
+
+.icon-btn {
+  background: transparent;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.connection-card__reply-icon { margin-right: 6px; }
 </style>

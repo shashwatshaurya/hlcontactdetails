@@ -103,18 +103,14 @@ export default defineComponent({
   border-bottom: 1px solid transparent;
   padding: 2px 0;
 }
-.hl-input-wrap--line:focus-within {
-  border-bottom-color: var(--primary-color, #3b82f6);
-}
+.hl-input-wrap--line:focus-within { border-bottom-color: var(--primary-color); }
 
 .hl-input-wrap--textarea {
   border-bottom: 1px solid transparent;
   padding: 6px 0;
   background: var(--component-bg-color);
 }
-.hl-input-wrap--textarea:focus-within {
-  border-bottom-color: var(--primary-color, #3b82f6);
-}
+.hl-input-wrap--textarea:focus-within { border-bottom-color: var(--primary-color); }
 
 .hl-input-control {
   flex: 1 1 auto;

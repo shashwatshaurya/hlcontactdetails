@@ -1,18 +1,19 @@
-export { default as HlAvatar } from './Avatar.vue'
-export { default as HlButton } from './Button.vue'
-export { default as HlTextPost } from './TextPost.vue'
-export { default as HlInput } from './Input.vue'
-export { default as HlSelect } from './Select.vue'
+import HlAvatar from './Avatar.vue'
+import HlButton from './Button.vue'
+import HlTextPost from './TextPost.vue'
+import HlCard from './Card.vue'
+import HlTags from './Tags.vue'
+import HlInput from './Input.vue'
+import HlSelect from './Select.vue'
 
-// re-exports for convenience
+export { HlAvatar, HlButton, HlTextPost, HlCard, HlTags, HlInput, HlSelect }
+
 export default {
-  HlAvatar: (await import('./Avatar.vue')).default,
-  HlButton: (await import('./Button.vue')).default,
-  HlTextPost: (await import('./TextPost.vue')).default,
-  HlCard: (await import('./Card.vue')).default,
-  HlTabs: (await import('./Tags.vue')).default,
-  HlInput: (await import('./Input.vue')).default,
-  HlSelect: (await import('./Select.vue')).default,
+  HlAvatar,
+  HlButton,
+  HlTextPost,
+  HlCard,
+  HlTags,
+  HlInput,
+  HlSelect,
 }
-
-

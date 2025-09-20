@@ -11,18 +11,7 @@
         @click="$emit('call')"
         aria-label="call contact"
       >
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M22 16.92v3a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3.1 5.18 2 2 0 0 1 5.11 3h3a2 2 0 0 1 2 1.72c.12.89.31 1.76.57 2.6a2 2 0 0 1-.45 2.11L9 10a16 16 0 0 0 5 5l.57-1.23a2 2 0 0 1 2.11-.45c.84.26 1.71.45 2.6.57A2 2 0 0 1 22 16.92z"
-            fill="#059669"
-          />
-        </svg>
+        <Icon icon="mi:call" width="16" height="16" />
       </button>
     </div>
 
@@ -76,7 +65,7 @@
               >
                 <path
                   d="M6 9l6 6 6-6"
-                  stroke="#6B7280"
+                  stroke="var(--muted-color)"
                   stroke-width="2"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -113,14 +102,12 @@
 
 <script>
 import { defineComponent, ref, onMounted, onBeforeUnmount } from "vue";
-import HlCard from "../../base-components/Card.vue";
-import HlAvatar from "../../base-components/Avatar.vue";
-import HlSelect from "../../base-components/Select.vue";
-import HlTags from "../../base-components/Tags.vue";
+import { HlCard, HlAvatar, HlSelect, HlTags } from "@/base-components";
+import { Icon } from "@iconify/vue";
 
 export default defineComponent({
   name: "ContactCard",
-  components: { HlCard, HlAvatar, HlTags, HlSelect },
+  components: { HlCard, HlAvatar, HlTags, HlSelect, Icon },
   props: {
     name: { type: String, required: true },
     owner: { type: String, required: true },
@@ -178,9 +165,9 @@ export default defineComponent({
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #dcfce7;
+  background: var(--success-100);
   border: none;
-  border-radius: 8px;
+  border-radius: var(--component-radius);
   cursor: pointer;
 }
 
@@ -254,7 +241,7 @@ export default defineComponent({
   background: var(--component-bg-color);
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 16px var(--shadow-08);
   min-width: 120px;
   z-index: 30;
   padding: 6px 0;
@@ -265,9 +252,7 @@ export default defineComponent({
   gap: 8px;
   padding: 6px 10px;
 }
-.followers-menu__item:hover {
-  background: #f3f4f6;
-}
+.followers-menu__item:hover { background: var(--surface-100); }
 .followers-menu__label {
   font-size: 12px;
 }

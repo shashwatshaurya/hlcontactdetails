@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { fetchLayout } from '../services/layout'
+import { fetchLayout } from '@/services/layout'
 
-const Home = () => import('../views/Home.vue')
+const Home = () => import('@/views/Home.vue')
 
 const routes = [
   {

@@ -2,29 +2,10 @@
   <div class="connections-root">
     <div class="connections-header">
       <div class="connections-header__left">
-        <svg
-          width="18"
-          height="18"
-          viewBox="0 0 24 24"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M3 8h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8z"
-            stroke="#111827"
-            stroke-width="1.2"
-            fill="#fff"
-          />
-          <path
-            d="M3 8l9 6 9-6"
-            stroke="#111827"
-            stroke-width="1.2"
-            fill="none"
-          />
-        </svg>
+        <Icon :icon="'bx:conversation'" width="18" height="18" />
       </div>
       <div class="connections-header__title">
-        Conversations <span class="connections-header__title-icon">▾</span>
+        Conversations
       </div>
     </div>
     <div class="connections-list">
@@ -49,13 +30,14 @@
 import { defineComponent } from "vue";
 import { ref, computed } from "vue";
 import { useStore } from "vuex";
+import { Icon } from '@iconify/vue';
 import ConnectionCard from "./ConnectionCard.vue";
-import TextPost from "../../base-components/TextPost.vue";
+import { HlTextPost } from "@/base-components";
 import { CONNECTIONS_DUMMY } from "./constants";
 
 export default defineComponent({
   name: "ConnectionsList",
-  components: { ConnectionCard, TextPost },
+  components: { ConnectionCard, TextPost: HlTextPost, Icon },
   setup() {
     const message = ref("");
     const store = useStore();
@@ -92,9 +74,9 @@ export default defineComponent({
   gap: 1rem;
   background: var(--component-bg-color);
   padding: 1rem;
-  border-radius: var(--card-radius);
+  border-radius: var(--root-container-radius);
   max-height: 97vh;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 2px 8px var(--shadow-06);
 }
 .connections-root :deep(.hl-card__header) {
   font-weight: 500;
@@ -132,6 +114,5 @@ export default defineComponent({
   position: sticky;
   bottom: 0;
   background: var(--component-bg-color);
-  padding-top: 0.5rem;
 }
 </style>

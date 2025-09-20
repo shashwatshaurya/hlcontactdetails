@@ -61,7 +61,7 @@ export default defineComponent({
 <style scoped>
 .hl-card {
   border: 1px solid var(--border-color);
-  border-radius: var(--card-radius);
+  border-radius: var(--component-radius);
   padding: 16px;
   background: var(--component-bg-color);
 }
@@ -70,8 +70,8 @@ export default defineComponent({
   padding: 8px 12px;
   border-bottom: 1px solid var(--header-border-color);
   margin: -16px -16px 12px -16px;
-  border-top-left-radius: var(--card-radius);
-  border-top-right-radius: var(--card-radius);
+  border-top-left-radius: var(--component-radius);
+  border-top-right-radius: var(--component-radius);
   display: flex;
   align-items: center;
   gap: 8px;

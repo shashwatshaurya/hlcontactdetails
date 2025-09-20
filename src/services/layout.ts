@@ -1,5 +1,5 @@
-import layout from '../configs/jsonConfigs/layout.json'
-import { setInCache, getFromCache, CACHE_KEYS } from '../utils/localStorage'
+import layout from '@/configs/jsonConfigs/layout.json'
+import { setInCache, getFromCache, CACHE_KEYS } from '@/utils/localStorage'
 
 export function fetchLayout(useCache = true, delay = 250) {
   if (useCache) {

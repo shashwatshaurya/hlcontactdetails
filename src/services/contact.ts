@@ -1,6 +1,6 @@
-import contactData from '../configs/jsonConfigs/contactData.json'
-import contactFields from '../configs/jsonConfigs/contactFields.json'
-import { CACHE_KEYS, getFromCache, setInCache } from '../utils/localStorage'
+import contactData from '@/configs/jsonConfigs/contactData.json'
+import contactFields from '@/configs/jsonConfigs/contactFields.json'
+import { CACHE_KEYS, getFromCache, setInCache } from '@/utils/localStorage'
 
 export function fetchContactData(useCache = true, delay = 250) {
   if (useCache) {
