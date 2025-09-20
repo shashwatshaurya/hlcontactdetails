@@ -109,6 +109,12 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
   gap: 1rem;
+  /* Hide scrollbar but keep scroll functionality */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.connections-list::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 .connections-composer {
   position: sticky;

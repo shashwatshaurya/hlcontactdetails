@@ -209,6 +209,12 @@ export default defineComponent({
   align-items: stretch;
   flex: 1 1 auto;
   overflow: auto;
+  /* Hide scrollbar but keep scroll functionality */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.contact-details::-webkit-scrollbar {
+  display: none; /* Chrome, Safari */
 }
 
 .contact-details__block {
