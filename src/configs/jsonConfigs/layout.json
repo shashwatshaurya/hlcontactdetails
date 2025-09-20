@@ -28,9 +28,9 @@
           "style": {}
         },
         "componentProps": {
-          "style": {
-            "border-radius": "12px",
-            "box-shadow": "0 2px 8px rgba(0, 0, 0, 0.06)"
+            "style": {
+              "border-radius": "var(--root-container-radius)",
+            "box-shadow": "0 2px 8px var(--shadow-06)"
           }
         },
         "title": "Notes",
@@ -44,13 +44,13 @@
           "style": {}
         },
         "componentProps": {
-          "style": {
-            "border-radius": "12px",
-            "box-shadow": "0 2px 8px rgba(0, 0, 0, 0.06)"
+            "style": {
+              "border-radius": "var(--root-container-radius)",
+            "box-shadow": "0 2px 8px var(--shadow-06)"
           }
         },
         "title": "Notes",
-        "icon": "icon-note",
+        "icon": "icon-editor",
         "description": "This is where you see the notes",
         "isActive": false
       }
@@ -65,7 +65,7 @@
           "name": "contactDetails",
           "props": {
             "style": {
-              "border-radius": "12px"
+              "border-radius": "var(--root-container-radius)"
             }
           }
         },
@@ -73,7 +73,7 @@
           "name": "connections",
           "props": {
             "style": {
-              "border-radius": "12px"
+              "border-radius": "var(--root-container-radius)"
             }
           }
         }

@@ -10,6 +10,7 @@ body {
 }
 
 :root {
+  /* Core base variables (moved here for global availability) */
   --page-bg-color: #e0e0e0eb;
   --component-bg-color: #fff;
   --border-color: #e6e9ef;
@@ -17,7 +18,38 @@ body {
   --text-color: #111827;
   --link-color: #1a73e8;
   --header-border-color: #eef2f7;
-  --card-radius: 10px;
+  --component-radius: 5px;
+  --root-container-radius: 12px;
   --font-size-large: 16px;
   --font-size-small: 13px;
+  /* Standardized color tokens */
+  --color-white: #ffffff;
+  --color-black: #000000;
+  /* Brand */
+  --primary-color: #1a73e8;
+  --primary-color-500: #3b82f6;
+  --primary-color-600: #2563eb;
+  --primary-color-700: #1d4ed8;
+  /* Surfaces */
+  --primary-bg-soft: #e8f0fe;
+  --primary-bg-soft-alt: #e8f0ff;
+  --primary-bg-selected: #eef2ff;
+  --text-900: #0f172a;
+  --muted-700: #374151;
+  --muted-600: #4b5563;
+  --stroke-300: #cbd5e1;
+  --border-soft: #e6edf6;
+  --surface-100: #f3f4f6;
+  --surface-50: #f9fafb;
+  /* Accents */
+  --success-600: #059669;
+  --success-100: #dcfce7;
+  --warning-100: #fff6d8;
+  --warning-300: #f1d48a;
+  --amber-700: #c47e00;
+  --purple-700: #7c3aed;
+  /* Shadows */
+  --shadow-primary-12: rgba(37, 99, 235, 0.12);
+  --shadow-06: rgba(0, 0, 0, 0.06);
+  --shadow-08: rgba(0, 0, 0, 0.08);
 }

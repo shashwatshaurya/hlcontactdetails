@@ -20,8 +20,8 @@
 <script setup lang="ts">
 import { ref, h } from 'vue'
 import { useRoute } from 'vue-router'
-import renderLayout from '../utils/renderLayout'
-import Sidebar from '../components/sidebar/index.vue'
+import renderLayout from '@/utils/renderLayout'
+import Sidebar from '@/components/sidebar/index.vue'
 
 const route = useRoute()
 const layout = route.meta.layout ?? undefined
@@ -30,23 +30,22 @@ const { content: initialContent, sidebar, contentStyle } = renderLayout(layout)
 const content = ref(initialContent)
 const activeSidebarKey = ref<string | undefined>(undefined)
 const displayContentStyle = ref(contentStyle ?? {})
-console.log(displayContentStyle.value)
 
-// map icon keys to svg strings (fallbacks provided)
+// map icon keys to Iconify icon names or fallbacks
 const iconMap = {
-  'icon-note': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8l-5-6z" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
-  'icon-editor': '<svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M21 11.5V18a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h6.5" stroke="#6B7280" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
-}
+  'icon-note': { icon: 'streamline-ultimate:notes-book' },
+  'icon-editor': { icon: 'mdi:pencil-outline' }
+} as const
 
-const defaultSvg = iconMap['icon-note']
+const defaultIcon = iconMap['icon-note']
 
 // items passed to the Sidebar component (title + svg)
-type SidebarItem = { title: string; svg: string; key?: string }
+type SidebarItem = { title: string; svg?: string; icon?: string; key?: string }
 const sidebarItems: SidebarItem[] = sidebar.map((it) => {
   const iconKey = (it.icon ?? '') as keyof typeof iconMap
-  const svg = iconMap[iconKey] ?? defaultSvg
+  const mapped = iconMap[iconKey] ?? defaultIcon
   return {
-    svg,
+    icon: mapped.icon,
     key: it.key,
     title: it.title ?? ''
   }
@@ -76,16 +75,16 @@ function setActiveKey(val?: string) {
 
 <style scoped>
 main {
-  padding: 0.8rem;
+  padding: 0.8rem 0.5rem 0.8rem 0.8rem;
 }
 .layout-root {
   display: flex;
-  gap: 1rem;
+  gap: 0.5rem;
   flex-direction: row-reverse;
 }
 .layout-sidebar {
   /* width: 260px; */
-  width: 42px;
+  width: 32px;
 }
 .layout-content {
   flex: 1;

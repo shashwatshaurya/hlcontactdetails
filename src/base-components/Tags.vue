@@ -62,38 +62,38 @@ export default defineComponent({
   align-items:center;
   gap:6px;
   padding: 2px 6px;
-  border-radius: 5px;
+  border-radius: var(--component-radius);
   /* border: 1px solid rgba(37, 99, 235, 0.18); */
-  background: var(--page-bg-color, #e8f0ff);
+  background: var(--primary-bg-soft-alt);
   font-size: 12px;
   cursor: default;
 }
-.hl-tags__label { cursor: default; color: #2563eb; font-weight: 600 }
+.hl-tags__label { cursor: default; color: var(--primary-color-600); font-weight: 600 }
 .hl-tags__close {
   background: transparent;
   border: none;
   padding: 0 4px;
   cursor: pointer;
   font-size: 14px;
-  color: #3b82f6;
+  color: var(--primary-color-500);
 }
 .hl-tags__overflow {
   padding: 6px 10px;
   border-radius: 9999px;
-  background: var(--page-bg-color, #e8f0ff);
-  color: #2563eb;
+  background: var(--primary-bg-soft-alt);
+  color: var(--primary-color-600);
   /* border: 1px solid rgba(37, 99, 235, 0.18); */
   cursor: pointer;
 }
 .hl-tags__add {
   padding: 2px 6px;
   border-radius: 9999px;
-  background: var(--page-bg-color, #e8f0ff);
-  color: #2563eb;
+  background: var(--primary-bg-soft-alt);
+  color: var(--primary-color-600);
   /* border: 1px solid rgba(37, 99, 235, 0.18); */
   border: none;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: var(--component-radius);
   font-size: 14px;
 }
 </style>

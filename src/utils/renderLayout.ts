@@ -1,6 +1,6 @@
 import { h, type Component } from 'vue'
-import componentMap from '../components/componentMap'
-import defaultLayout from '../configs/jsonConfigs/layout.json'
+import componentMap from '@/components/componentMap'
+import defaultLayout from '@/configs/jsonConfigs/layout.json'
 
 export type RenderItem = { comp: Component; props?: Record<string, any>; componentProps?: Record<string, any>; icon?: string; title?: string; key: string }
 

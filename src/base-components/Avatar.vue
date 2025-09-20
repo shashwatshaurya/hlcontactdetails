@@ -12,7 +12,7 @@ export default defineComponent({
   props: {
     name: { type: String, required: true },
     size: { type: String, default: "md" },
-    backgroundColor: { type: String, default: "#e0e7ff" },
+    backgroundColor: { type: String, default: "var(--primary-bg-soft-alt)" },
   },
   setup(props) {
     const initials = computed(() => {
@@ -35,7 +35,7 @@ export default defineComponent({
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  color: #0f172a;
+  color: var(--text-900);
   font-weight: 600;
 }
 .hl-avatar--md {

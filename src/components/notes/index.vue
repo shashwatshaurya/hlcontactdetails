@@ -22,8 +22,8 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-import { fetchNotes } from '../../services/notes'
-import Base from '../../base-components'
+import { fetchNotes } from '@/services/notes'
+import { HlCard } from '@/base-components'
 
 const props = defineProps<{
   style?: Record<string, any>
@@ -31,8 +31,6 @@ const props = defineProps<{
 }>()
 
 const rootStyle = computed(() => props.style ?? {})
-
-const { HlCard } = Base
 
 type NoteItem = { content: string; createdAt: string }
 const notes = ref<NoteItem[]>([])
@@ -84,19 +82,20 @@ function onCloseClick() {
   padding: 4px 8px;
   font-size: 16px;
   line-height: 1;
-  color: var(--text-color);
+  color: var(--muted-700);
 }
 .notes-list { display: flex; flex-direction: column; gap: 12px; flex: 1; min-height: 0; overflow: auto }
 .note-item {
-  background: #fff6d8;
-  border: 1px solid #f1d48a;
-  border-radius: 8px;
+  background: var(--warning-100);
+  border: 1px solid var(--warning-300);
+  border-radius: var(--component-radius);
   padding: 12px;
+  font-size: calc(var(--font-size-large) - 2px);
 }
-.note-content { color: #374151; }
-.note-time { color: #6b7280; font-size: 12px; margin-top: 8px }
-.note-content :deep(.mention) { color: #1d4ed8; font-weight: 600 }
-.note-content :deep(.note-special) { color: #1a73e8; font-weight: 600 }
+.note-content { color: var(--muted-700); }
+.note-time { color: var(--muted-color); font-size: 12px; margin-top: 8px }
+.note-content :deep(.mention) { color: var(--primary-color-700); font-weight: 600 }
+.note-content :deep(.note-special) { color: var(--primary-color); font-weight: 600 }
 .note-content :deep(.note-special .mention) { color: inherit; font-weight: inherit }
 </style>
 

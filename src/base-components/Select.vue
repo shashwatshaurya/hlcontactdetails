@@ -24,7 +24,7 @@
       >
         <path
           d="M6 9l6 6 6-6"
-          stroke="#6B7280"
+          stroke="var(--muted-color)"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -49,7 +49,7 @@
       >
         <path
           d="M6 9l6 6 6-6"
-          stroke="#6B7280"
+          stroke="var(--muted-color)"
           stroke-width="2"
           stroke-linecap="round"
           stroke-linejoin="round"
@@ -193,9 +193,7 @@ export default defineComponent({
 .hl-select--input .hl-select__chevron {
   display: none;
 }
-.hl-select--input:focus-within {
-  border-color: var(--primary-color, #3b82f6);
-}
+.hl-select--input:focus-within { border-color: var(--primary-color); }
 
 /* Variant: avatar */
 .hl-select--avatar {
@@ -247,7 +245,7 @@ export default defineComponent({
   z-index: 20;
   max-height: 220px;
   overflow: auto;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 6px 16px var(--shadow-08);
 }
 .hl-select__option {
   padding: 8px 10px;
@@ -256,12 +254,8 @@ export default defineComponent({
   gap: 8px;
   cursor: pointer;
 }
-.hl-select__option:hover {
-  background: #f3f4f6;
-}
-.hl-select__option.is-selected {
-  background: #eef2ff;
-}
+.hl-select__option:hover { background: var(--surface-100); }
+.hl-select__option.is-selected { background: var(--primary-bg-selected); }
 .hl-select__option-label {
   color: var(--text-color);
   font-size: 12px;
