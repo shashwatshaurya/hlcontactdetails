@@ -9,11 +9,11 @@
     </div>
 
     <textarea
-      class="hl-text-post__input"
       v-model="localValue"
+      class="hl-text-post__input"
       :placeholder="placeholder"
-      @keydown="onKeydown"
       rows="1"
+      @keydown="onKeydown"
     />
 
     <div class="hl-text-post__right">
@@ -22,15 +22,15 @@
           icon="fluent:sparkle-32-regular"
           width="16"
           height="16"
-          :hFlip="true"
+          :h-flip="true"
           color="var(--purple-700)"
           style="margin-right: 4px"
         />
         <button
           class="hl-text-post__send"
           :disabled="!canSend"
-          @click="sendMessage"
           aria-label="Send"
+          @click="sendMessage"
         >
           <Icon icon="prime:send" width="16" height="16" />
         </button>
@@ -40,61 +40,61 @@
 </template>
 
 <script>
-import { defineComponent, ref, watch, computed, nextTick } from "vue";
-import { Icon } from "@iconify/vue";
+import { defineComponent, ref, watch, computed, nextTick } from 'vue'
+import { Icon } from '@iconify/vue'
 
 export default defineComponent({
-  name: "HlTextPost",
+  name: 'HlTextPost',
   components: { Icon },
   props: {
-    modelValue: { type: String, default: "" },
-    placeholder: { type: String, default: "Type your message..." },
+    modelValue: { type: String, default: '' },
+    placeholder: { type: String, default: 'Type your message...' },
   },
-  emits: ["update:modelValue", "send"],
+  emits: ['update:modelValue', 'send'],
   setup(props, { emit }) {
-    const localValue = ref(props.modelValue);
+    const localValue = ref(props.modelValue)
 
     watch(
       () => props.modelValue,
       (v) => {
-        if (v !== localValue.value) localValue.value = v;
+        if (v !== localValue.value) localValue.value = v
       }
-    );
+    )
 
-    watch(localValue, (v) => emit("update:modelValue", v));
+    watch(localValue, (v) => emit('update:modelValue', v))
 
-    const canSend = computed(() => (localValue.value || "").trim().length > 0);
+    const canSend = computed(() => (localValue.value || '').trim().length > 0)
 
     function sendMessage() {
-      const text = (localValue.value || "").trim();
-      if (!text) return;
-      emit("send", text);
-      localValue.value = "";
+      const text = (localValue.value || '').trim()
+      if (!text) return
+      emit('send', text)
+      localValue.value = ''
       // keep textarea height small after clearing
       nextTick(() => {
-        const ta = document.querySelector(".hl-text-post__input");
-        if (ta && ta instanceof HTMLTextAreaElement) ta.style.height = "auto";
-      });
+        const ta = document.querySelector('.hl-text-post__input')
+        if (ta && ta instanceof HTMLTextAreaElement) ta.style.height = 'auto'
+      })
     }
 
     function onKeydown(e) {
-      if (e.key === "Enter" && !e.shiftKey) {
-        e.preventDefault();
-        sendMessage();
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault()
+        sendMessage()
       }
       // auto-resize
       nextTick(() => {
-        const ta = e.target;
+        const ta = e.target
         if (ta && ta instanceof HTMLTextAreaElement) {
-          ta.style.height = "auto";
-          ta.style.height = `${Math.min(120, ta.scrollHeight)}px`;
+          ta.style.height = 'auto'
+          ta.style.height = `${Math.min(120, ta.scrollHeight)}px`
         }
-      });
+      })
     }
 
-    return { localValue, canSend, sendMessage, onKeydown };
+    return { localValue, canSend, sendMessage, onKeydown }
   },
-});
+})
 </script>
 
 <style scoped>

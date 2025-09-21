@@ -4,8 +4,8 @@
       v-if="header || $slots.left || $slots.right"
       class="hl-card__header"
       :class="{ 'hl-card__header--clickable': collapsible && headerClickable }"
-      @click="onHeaderClick"
       v-bind="headerAttrs"
+      @click="onHeaderClick"
       @keydown.enter.space.prevent="onHeaderClick"
     >
       <div class="hl-card__header-left">
@@ -16,7 +16,7 @@
         <slot name="right"></slot>
       </div>
     </div>
-    <div class="hl-card__body" v-show="!isCollapsed">
+    <div v-show="!isCollapsed" class="hl-card__body">
       <slot />
     </div>
   </div>
@@ -32,13 +32,15 @@ export default defineComponent({
     collapsible: { type: Boolean, default: false },
     collapsed: { type: Boolean, default: undefined },
     defaultCollapsed: { type: Boolean, default: false },
-    headerClickable: { type: Boolean, default: true }
+    headerClickable: { type: Boolean, default: true },
   },
   emits: ['update:collapsed', 'toggle'],
   setup(props, { emit }) {
     const internalCollapsed = ref(!!props.defaultCollapsed)
     const isControlled = computed(() => props.collapsed !== undefined)
-    const isCollapsed = computed(() => (isControlled.value ? !!props.collapsed : internalCollapsed.value))
+    const isCollapsed = computed(() =>
+      isControlled.value ? !!props.collapsed : internalCollapsed.value
+    )
 
     function onHeaderClick() {
       if (!props.collapsible || !props.headerClickable) return
@@ -54,7 +56,7 @@ export default defineComponent({
     })
 
     return { isCollapsed, onHeaderClick, headerAttrs }
-  }
+  },
 })
 </script>
 
@@ -76,13 +78,31 @@ export default defineComponent({
   align-items: center;
   gap: 8px;
 }
-.hl-card__header--clickable { cursor: pointer; user-select: none }
-.hl-card__header-left { display: flex; align-items: center; gap: 8px }
-.hl-card__header-right { display: flex; align-items: center; gap: 8px }
-.hl-card__spacer { flex: 1 }
-.hl-card__body { margin-top: 8px }
-.hl-card--collapsed { padding-bottom: 0 }
-.hl-card--collapsed .hl-card__header { margin-bottom: 0; border-bottom: 0 }
+.hl-card__header--clickable {
+  cursor: pointer;
+  user-select: none;
+}
+.hl-card__header-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hl-card__header-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.hl-card__spacer {
+  flex: 1;
+}
+.hl-card__body {
+  margin-top: 8px;
+}
+.hl-card--collapsed {
+  padding-bottom: 0;
+}
+.hl-card--collapsed .hl-card__header {
+  margin-bottom: 0;
+  border-bottom: 0;
+}
 </style>
-
-

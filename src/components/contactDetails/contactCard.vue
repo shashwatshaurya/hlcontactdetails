@@ -6,11 +6,7 @@
         <div class="contact-card__name">{{ name }}</div>
       </div>
 
-      <button
-        class="contact-card__call"
-        @click="$emit('call')"
-        aria-label="call contact"
-      >
+      <button class="contact-card__call" aria-label="call contact" @click="$emit('call')">
         <Icon icon="mi:call" width="16" height="16" />
       </button>
     </div>
@@ -21,10 +17,10 @@
         <HlSelect
           class="contact-card__owner"
           :options="ownerOptions"
-          :modelValue="owner"
-          @update:modelValue="$emit('update-owner', $event)"
+          :model-value="owner"
           placeholder="Select owner"
           variant="avatar"
+          @update:model-value="$emit('update-owner', $event)"
         />
       </div>
 
@@ -73,11 +69,7 @@
               </svg>
             </div>
             <div v-if="isFollowersOpen" class="contact-card__followers-menu" @click.stop>
-              <div
-                v-for="(f, i) in followers"
-                :key="`menu-${i}`"
-                class="followers-menu__item"
-              >
+              <div v-for="(f, i) in followers" :key="`menu-${i}`" class="followers-menu__item">
                 <HlAvatar :name="f" size="xs" />
                 <span class="followers-menu__label">{{ f }}</span>
               </div>
@@ -91,7 +83,7 @@
       <div class="contact-card__label">Tags</div>
       <HlTags
         :tabs="tags"
-        :maxVisible="3"
+        :max-visible="3"
         @add="$emit('add-tag')"
         @remove="$emit('remove-tag', $event)"
         @show-overflow="$emit('show-tags')"
@@ -101,12 +93,12 @@
 </template>
 
 <script>
-import { defineComponent, ref, onMounted, onBeforeUnmount } from "vue";
-import { HlCard, HlAvatar, HlSelect, HlTags } from "@/base-components";
-import { Icon } from "@iconify/vue";
+import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue'
+import { HlCard, HlAvatar, HlSelect, HlTags } from '@/base-components'
+import { Icon } from '@iconify/vue'
 
 export default defineComponent({
-  name: "ContactCard",
+  name: 'ContactCard',
   components: { HlCard, HlAvatar, HlTags, HlSelect, Icon },
   props: {
     name: { type: String, required: true },
@@ -115,33 +107,33 @@ export default defineComponent({
     tags: { type: Array, default: () => [] },
     ownerOptions: { type: Array, default: () => [] },
   },
-  emits: ["call", "add-tag", "remove-tag", "show-tags", "update-owner"],
+  emits: ['call', 'add-tag', 'remove-tag', 'show-tags', 'update-owner'],
   setup() {
-    const isFollowersOpen = ref(false);
-    const followersWrap = ref(null);
+    const isFollowersOpen = ref(false)
+    const followersWrap = ref(null)
 
     function toggleFollowers() {
-      isFollowersOpen.value = !isFollowersOpen.value;
+      isFollowersOpen.value = !isFollowersOpen.value
     }
 
     function onClickOutside(e) {
-      const el = followersWrap.value;
-      if (!el) return;
+      const el = followersWrap.value
+      if (!el) return
       if (!el.contains(e.target)) {
-        isFollowersOpen.value = false;
+        isFollowersOpen.value = false
       }
     }
 
     onMounted(() => {
-      document.addEventListener("click", onClickOutside);
-    });
+      document.addEventListener('click', onClickOutside)
+    })
     onBeforeUnmount(() => {
-      document.removeEventListener("click", onClickOutside);
-    });
+      document.removeEventListener('click', onClickOutside)
+    })
 
-    return { isFollowersOpen, followersWrap, toggleFollowers };
+    return { isFollowersOpen, followersWrap, toggleFollowers }
   },
-});
+})
 </script>
 
 <style scoped>
@@ -252,7 +244,9 @@ export default defineComponent({
   gap: 8px;
   padding: 6px 10px;
 }
-.followers-menu__item:hover { background: var(--surface-100); }
+.followers-menu__item:hover {
+  background: var(--surface-100);
+}
 .followers-menu__label {
   font-size: 12px;
 }

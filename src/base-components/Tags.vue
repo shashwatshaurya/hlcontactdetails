@@ -1,24 +1,16 @@
 <template>
   <div class="hl-tags">
     <div class="hl-tags__list">
-      <span
-        v-for="(tag, idx) in visibleTags"
-        :key="idx"
-        class="hl-tags__item"
-      >
+      <span v-for="(tag, idx) in visibleTags" :key="idx" class="hl-tags__item">
         <span class="hl-tags__label">{{ tag }}</span>
-        <button class="hl-tags__close" @click="closeTag(idx)" aria-label="remove tag">×</button>
+        <button class="hl-tags__close" aria-label="remove tag" @click="closeTag(idx)">×</button>
       </span>
 
-      <button
-        v-if="overflowCount > 0"
-        class="hl-tags__overflow"
-        @click="emitShowOverflow"
-      >
+      <button v-if="overflowCount > 0" class="hl-tags__overflow" @click="emitShowOverflow">
         +{{ overflowCount }}
       </button>
 
-      <button class="hl-tags__add" @click="emitAdd" aria-label="add tag">+</button>
+      <button class="hl-tags__add" aria-label="add tag" @click="emitAdd">+</button>
     </div>
   </div>
 </template>
@@ -30,7 +22,7 @@ export default defineComponent({
   name: 'HlTags',
   props: {
     tabs: { type: Array, default: () => [] },
-    maxVisible: { type: Number, default: 3 }
+    maxVisible: { type: Number, default: 3 },
   },
   emits: ['remove', 'add', 'show-overflow'],
   setup(props, { emit }) {
@@ -51,16 +43,20 @@ export default defineComponent({
     const overflowCount = computed(() => Math.max(0, props.tabs.length - props.maxVisible))
 
     return { closeTag, emitAdd, emitShowOverflow, visibleTags, overflowCount }
-  }
+  },
 })
 </script>
 
 <style scoped>
-.hl-tags__list { display:flex; gap:8px; align-items:center }
+.hl-tags__list {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
 .hl-tags__item {
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
   padding: 2px 6px;
   border-radius: var(--component-radius);
   /* border: 1px solid rgba(37, 99, 235, 0.18); */
@@ -68,7 +64,11 @@ export default defineComponent({
   font-size: 12px;
   cursor: default;
 }
-.hl-tags__label { cursor: default; color: var(--primary-color-600); font-weight: 600 }
+.hl-tags__label {
+  cursor: default;
+  color: var(--primary-color-600);
+  font-weight: 600;
+}
 .hl-tags__close {
   background: transparent;
   border: none;
@@ -97,5 +97,3 @@ export default defineComponent({
   font-size: 14px;
 }
 </style>
-
-

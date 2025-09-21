@@ -2,16 +2,16 @@
   <main>
     <section class="layout-root">
       <aside v-if="sidebarItems.length > 0" class="layout-sidebar">
-        <Sidebar :items="sidebarItems" :activeKey="activeSidebarKey || ''" @update:activeKey="setActiveKey" @select="onSelect" />
+        <Sidebar
+          :items="sidebarItems"
+          :active-key="activeSidebarKey || ''"
+          @update:active-key="setActiveKey"
+          @select="onSelect"
+        />
       </aside>
 
       <section class="layout-content" :style="displayContentStyle">
-        <component
-          v-for="item in content"
-          :is="item.comp"
-          v-bind="item.props"
-          :key="item.key"
-        />
+        <component :is="item.comp" v-for="item in content" v-bind="item.props" :key="item.key" />
       </section>
     </section>
   </main>
@@ -34,7 +34,7 @@ const displayContentStyle = ref(contentStyle ?? {})
 // map icon keys to Iconify icon names or fallbacks
 const iconMap = {
   'icon-note': { icon: 'streamline-ultimate:notes-book' },
-  'icon-editor': { icon: 'mdi:pencil-outline' }
+  'icon-editor': { icon: 'mdi:pencil-outline' },
 } as const
 
 const defaultIcon = iconMap['icon-note']
@@ -47,7 +47,7 @@ const sidebarItems: SidebarItem[] = sidebar.map((it) => {
   return {
     icon: mapped.icon,
     key: it.key,
-    title: it.title ?? ''
+    title: it.title ?? '',
   }
 })
 
@@ -57,11 +57,14 @@ function onSelect(selectedKey: string) {
   const Comp = selected.comp ?? (() => h('div', `Missing component`))
   const baseProps = selected.componentProps ? selected.componentProps : {}
   const key = `selected-${selectedKey}-${Date.now()}`
-  const props = { ...baseProps, onClose: () => {
-    content.value = content.value.filter((it) => it.key !== key)
-    // clear active state in sidebar when panel is closed
-    activeSidebarKey.value = undefined
-  }}
+  const props = {
+    ...baseProps,
+    onClose: () => {
+      content.value = content.value.filter((it) => it.key !== key)
+      // clear active state in sidebar when panel is closed
+      activeSidebarKey.value = undefined
+    },
+  }
   // Append the selected component to the right side of existing content
   content.value = [...initialContent, { comp: Comp, props, key }]
   // set active state in sidebar

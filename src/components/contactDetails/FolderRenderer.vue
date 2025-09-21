@@ -36,19 +36,16 @@
         <div
           v-for="fld in getFolderFields(folder)"
           :key="fld.key"
-          :class="[
-            'field',
-            isFirstName(fld) && hasLastName(folder) ? 'name-row' : '',
-          ]"
+          :class="['field', isFirstName(fld) && hasLastName(folder) ? 'name-row' : '']"
         >
           <template v-if="isFirstName(fld) && hasLastName(folder)">
             <div class="field">
               <div class="field__label">{{ fld.label }}</div>
               <div class="field__value">
                 <HlInput
-                  :type="inputTypeFor(fld)"
                   v-model="localContact[fld.key]"
-                  :isMulti="isMulti(fld)"
+                  :type="inputTypeFor(fld)"
+                  :is-multi="isMulti(fld)"
                   :placeholder="isMulti(fld) ? 'Comma separated' : ''"
                 />
               </div>
@@ -59,14 +56,10 @@
               </div>
               <div class="field__value">
                 <HlInput
-                  :type="inputTypeFor(getFieldByKey(folder, 'lastName'))"
                   v-model="localContact['lastName']"
-                  :isMulti="isMulti(getFieldByKey(folder, 'lastName'))"
-                  :placeholder="
-                    isMulti(getFieldByKey(folder, 'lastName'))
-                      ? 'Comma separated'
-                      : ''
-                  "
+                  :type="inputTypeFor(getFieldByKey(folder, 'lastName'))"
+                  :is-multi="isMulti(getFieldByKey(folder, 'lastName'))"
+                  :placeholder="isMulti(getFieldByKey(folder, 'lastName')) ? 'Comma separated' : ''"
                 />
               </div>
             </div>
@@ -83,17 +76,12 @@
               />
               <HlInput
                 v-else-if="!isAddressField(fld)"
-                :type="inputTypeFor(fld)"
                 v-model="localContact[fld.key]"
-                :isMulti="isMulti(fld)"
+                :type="inputTypeFor(fld)"
+                :is-multi="isMulti(fld)"
                 :placeholder="isMulti(fld) ? 'Comma separated' : ''"
               />
-              <HlInput
-                v-else
-                textarea
-                :placeholder="''"
-                v-model="localContact[fld.key]"
-              />
+              <HlInput v-else v-model="localContact[fld.key]" textarea :placeholder="''" />
             </div>
           </template>
         </div>
@@ -103,12 +91,12 @@
 </template>
 
 <script>
-import { defineComponent, watch, toRefs, reactive } from "vue";
-import { HlCard, HlInput, HlSelect } from "@/base-components";
-import { Icon } from "@iconify/vue";
+import { defineComponent, watch, toRefs, reactive } from 'vue'
+import { HlCard, HlInput, HlSelect } from '@/base-components'
+import { Icon } from '@iconify/vue'
 
 export default defineComponent({
-  name: "FolderRenderer",
+  name: 'FolderRenderer',
   components: { HlCard, HlInput, HlSelect, Icon },
   props: {
     folders: { type: Array, default: () => [] },
@@ -116,77 +104,75 @@ export default defineComponent({
     ownerOptions: { type: Array, default: () => [] },
     isCollapsed: { type: Function, required: true },
   },
-  emits: ["update-contact", "update-collapsed"],
+  emits: ['update-contact', 'update-collapsed'],
   setup(props, { emit }) {
-    const { contact } = toRefs(props);
-    const localContact = reactive({ ...(contact.value || {}) });
+    const { contact } = toRefs(props)
+    const localContact = reactive({ ...(contact.value || {}) })
 
     watch(
       contact,
       (val) => {
-        Object.keys(localContact).forEach((k) => delete localContact[k]);
-        Object.assign(localContact, val || {});
+        Object.keys(localContact).forEach((k) => delete localContact[k])
+        Object.assign(localContact, val || {})
       },
       { deep: true, immediate: true }
-    );
+    )
 
     watch(
       localContact,
       (val) => {
-        emit("update-contact", { ...val });
+        emit('update-contact', { ...val })
       },
       { deep: true }
-    );
+    )
 
     function getFolderFields(folder) {
-      return folder?.fields ?? [];
+      return folder?.fields ?? []
     }
     function isMulti(field) {
-      return (field?.type ?? "").toLowerCase() === "multiselect";
+      return (field?.type ?? '').toLowerCase() === 'multiselect'
     }
     function inputTypeFor(field) {
-      const t = (field?.type ?? "text").toLowerCase();
-      if (t === "email") return "email";
-      if (t === "phone") return "tel";
-      return "text";
+      const t = (field?.type ?? 'text').toLowerCase()
+      if (t === 'email') return 'email'
+      if (t === 'phone') return 'tel'
+      return 'text'
     }
     function isSingleSelect(field) {
-      return (field?.type ?? "").toLowerCase() === "radio";
+      return (field?.type ?? '').toLowerCase() === 'radio'
     }
     function getOptions(field) {
       return Array.isArray(field?.options)
         ? field.options.filter((v) => v !== null && v !== undefined)
-        : [];
+        : []
     }
     function isAddressField(field) {
-      const key = (field?.key ?? "").toLowerCase();
-      return key === "address" || key === "streetaddress";
+      const key = (field?.key ?? '').toLowerCase()
+      return key === 'address' || key === 'streetaddress'
     }
     function isFirstName(field) {
-      const key = (field?.key ?? "").toLowerCase();
-      return key === "firstname";
+      const key = (field?.key ?? '').toLowerCase()
+      return key === 'firstname'
     }
     function isLastName(field) {
-      const key = (field?.key ?? "").toLowerCase();
-      return key === "lastname";
+      const key = (field?.key ?? '').toLowerCase()
+      return key === 'lastname'
     }
     function getFieldByKey(folder, key) {
-      const keyLc = String(key ?? "").toLowerCase();
+      const keyLc = String(key ?? '').toLowerCase()
       return (
-        (folder?.fields ?? []).find(
-          (f) => String(f?.key ?? "").toLowerCase() === keyLc
-        ) || null
-      );
+        (folder?.fields ?? []).find((f) => String(f?.key ?? '').toLowerCase() === keyLc) || null
+      )
     }
     function hasLastName(folder) {
-      return !!getFieldByKey(folder, "lastName");
+      return !!getFieldByKey(folder, 'lastName')
     }
     function hasFirstName(folder) {
-      return !!getFieldByKey(folder, "firstName");
+      return !!getFieldByKey(folder, 'firstName')
     }
     function shouldRenderField(folder, field) {
-      if (isLastName(field) && hasFirstName(folder)) return false;
-      return true;
+      if (isLastName(field) && hasFirstName(folder)) return false
+      return true
     }
 
     return {
@@ -201,9 +187,9 @@ export default defineComponent({
       hasLastName,
       shouldRenderField,
       getFieldByKey,
-    };
+    }
   },
-});
+})
 </script>
 
 <style scoped>
@@ -220,14 +206,18 @@ export default defineComponent({
 }
 .fields-grid,
 .field,
-.field__value { min-width: 0; }
+.field__value {
+  min-width: 0;
+}
 .name-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
   margin-bottom: -16px;
 }
-.name-row > .field { min-width: 0; }
+.name-row > .field {
+  min-width: 0;
+}
 .field__label {
   color: var(--muted-color);
   margin-bottom: 6px;
@@ -239,7 +229,9 @@ export default defineComponent({
   font-size: 18px;
 }
 .field__value .hl-input-control,
-.field__value .field__control { font-size: inherit; }
+.field__value .field__control {
+  font-size: inherit;
+}
 .field__control {
   width: 100%;
   border: 1px solid var(--border-color);
@@ -254,8 +246,10 @@ export default defineComponent({
   font-weight: 400;
   font-size: 14px;
 }
-.chevron { transition: transform 0.2s ease; }
-.chevron--down { transform: rotate(180deg); }
+.chevron {
+  transition: transform 0.2s ease;
+}
+.chevron--down {
+  transform: rotate(180deg);
+}
 </style>
-
-

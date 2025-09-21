@@ -4,9 +4,7 @@
       <div class="connections-header__left">
         <Icon :icon="'bx:conversation'" width="18" height="18" />
       </div>
-      <div class="connections-header__title">
-        Conversations
-      </div>
+      <div class="connections-header__title">Conversations</div>
     </div>
     <div class="connections-list">
       <ConnectionCard
@@ -16,7 +14,7 @@
         :title="conn.title"
         :header="conn.header"
         :message="conn.message"
-        :timeAgo="conn.timeAgo"
+        :time-ago="conn.timeAgo"
       />
     </div>
 
@@ -27,32 +25,32 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import { ref, computed } from "vue";
-import { useStore } from "vuex";
-import { Icon } from '@iconify/vue';
-import ConnectionCard from "./ConnectionCard.vue";
-import { HlTextPost } from "@/base-components";
-import { CONNECTIONS_DUMMY } from "./constants";
+import { defineComponent } from 'vue'
+import { ref, computed } from 'vue'
+import { useStore } from 'vuex'
+import { Icon } from '@iconify/vue'
+import ConnectionCard from './ConnectionCard.vue'
+import { HlTextPost } from '@/base-components'
+import { CONNECTIONS_DUMMY } from './constants'
 
 export default defineComponent({
-  name: "ConnectionsList",
+  name: 'ConnectionsList',
   components: { ConnectionCard, TextPost: HlTextPost, Icon },
   setup() {
-    const message = ref("");
-    const store = useStore();
+    const message = ref('')
+    const store = useStore()
 
     const fullName = computed(() => {
-      const formData = store.state.contactData?.formData || null;
-      const first = formData?.firstName ?? "";
-      const last = formData?.lastName ?? "";
-      const joined = `${first} ${last}`.trim();
-      return joined || CONNECTIONS_DUMMY.name;
-    });
+      const formData = store.state.contactData?.formData || null
+      const first = formData?.firstName ?? ''
+      const last = formData?.lastName ?? ''
+      const joined = `${first} ${last}`.trim()
+      return joined || CONNECTIONS_DUMMY.name
+    })
 
     const sendMessage = (message) => {
-      console.log(message);
-    };
+      console.log(message)
+    }
     return {
       items: computed(() =>
         Array.from({ length: 3 }, () => ({
@@ -62,9 +60,9 @@ export default defineComponent({
       ),
       message,
       sendMessage,
-    };
+    }
   },
-});
+})
 </script>
 
 <style scoped>
