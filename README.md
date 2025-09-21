@@ -1,8 +1,8 @@
 # HL Contact Details
 
-Vite + Vue 3 minimal project.
+HL Contact Details is a Vue 3 single-page app for browsing contact information, connections, and notes. It renders a dynamic UI from JSON configs, uses Vue Router for navigation and Vuex for state, and provides reusable base components. Built with Vite for fast development and optimized production builds (treeshaking, Terser minification, gzip/brotli compression).
 
-Run locally:
+## Run locally:
 
 ```bash
 npm install
@@ -10,6 +10,29 @@ npm run dev
 ```
 
 The dev server runs on port 3000 by default.
+
+## Linting & formatting
+
+```bash
+# Lint
+yarn lint
+
+# Lint and auto-fix
+yarn lint:fix
+
+# Format with Prettier
+yarn format
+```
+
+## Production build
+
+```bash
+# Build (production)
+yarn build
+
+# Preview built app locally (http://localhost:3000)
+yarn preview
+```
 
 ## Folder structure
 
@@ -35,3 +58,8 @@ The dev server runs on port 3000 by default.
 └─ README.md                   This file
 ```
 
+Optimizations:
+
+- Source maps are generated in production.
+- Assets are minified with Terser and compressed to .gz and .br.
+- Tree-shaking is enabled via Rollup (Vite build).
