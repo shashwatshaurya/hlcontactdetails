@@ -1,10 +1,10 @@
 <template>
   <div class="contact-details-root">
     <Header
-      :totalContacts="totalContacts"
-      :displayIndex="displayIndex"
-      :hasPrev="hasPrev"
-      :hasNext="hasNext"
+      :total-contacts="totalContacts"
+      :display-index="displayIndex"
+      :has-prev="hasPrev"
+      :has-next="hasNext"
       @prev="toPrev"
       @next="toNext"
     />
@@ -16,7 +16,7 @@
           :owner="contact.owner"
           :followers="contact.followers"
           :tags="contact.tags"
-          :ownerOptions="ownerOptions"
+          :owner-options="ownerOptions"
           @call="onCall"
           @update-owner="(val) => (contact.owner = val)"
         />
@@ -26,8 +26,8 @@
           v-if="folders.length"
           :folders="folders"
           :contact="contact"
-          :ownerOptions="ownerOptions"
-          :isCollapsed="isCollapsed"
+          :owner-options="ownerOptions"
+          :is-collapsed="isCollapsed"
           @update-collapsed="setCollapsed"
           @update-contact="setContact"
         />
@@ -37,120 +37,113 @@
 </template>
 
 <script>
-import { defineComponent, ref, computed, onMounted, watch } from "vue";
-import { useStore } from "vuex";
-import ContactCard from "./contactCard.vue";
-import Header from "./Header.vue";
-import FolderRenderer from "./FolderRenderer.vue";
-import { fetchContactData, fetchContactFields } from "@/services/contact";
+import { defineComponent, ref, computed, onMounted, watch } from 'vue'
+import { useStore } from 'vuex'
+import ContactCard from './contactCard.vue'
+import Header from './Header.vue'
+import FolderRenderer from './FolderRenderer.vue'
+import { fetchContactData, fetchContactFields } from '@/services/contact'
 
 export default defineComponent({
-  name: "ContactDetails",
+  name: 'ContactDetails',
   components: { ContactCard, Header, FolderRenderer },
   setup() {
-    const store = useStore();
-    const contact = ref(null);
-    const contacts = ref([]);
-    const selectedId = ref(null);
-    const folders = ref([]);
+    const store = useStore()
+    const contact = ref(null)
+    const contacts = ref([])
+    const selectedId = ref(null)
+    const folders = ref([])
     const fullName = computed(() => {
-      if (!contact.value) return "";
-      const first = contact.value.firstName ?? "";
-      const last = contact.value.lastName ?? "";
-      return `${first} ${last}`.trim();
-    });
+      if (!contact.value) return ''
+      const first = contact.value.firstName ?? ''
+      const last = contact.value.lastName ?? ''
+      return `${first} ${last}`.trim()
+    })
 
     // Track collapsed state for each section
-    const collapsedMap = ref({});
+    const collapsedMap = ref({})
     function isCollapsed(idx) {
-      return !!collapsedMap.value[idx];
+      return !!collapsedMap.value[idx]
     }
     function setCollapsed(idx, value) {
-      collapsedMap.value[idx] = !!value;
+      collapsedMap.value[idx] = !!value
     }
 
     // Preload from store if available
     if (store.state.contactData?.formData) {
-      contact.value = store.state.contactData.formData;
-      selectedId.value = store.state.contactData.formData?.id ?? null;
+      contact.value = store.state.contactData.formData
+      selectedId.value = store.state.contactData.formData?.id ?? null
     }
 
     onMounted(async () => {
-      const [data, fields] = await Promise.all([
-        fetchContactData(),
-        fetchContactFields(),
-      ]);
-      const list = Array.isArray(data?.contacts) ? data.contacts : [];
-      contacts.value = list;
+      const [data, fields] = await Promise.all([fetchContactData(), fetchContactFields()])
+      const list = Array.isArray(data?.contacts) ? data.contacts : []
+      contacts.value = list
 
       // Initialize selection
       if (!contact.value) {
-        contact.value = list[0] ?? null;
+        contact.value = list[0] ?? null
       }
-      selectedId.value = contact.value?.id ?? list[0]?.id ?? null;
-      store.commit("contactData/setFormData", contact.value);
-      store.dispatch("contactFields/setOwnerOptions", fields);
+      selectedId.value = contact.value?.id ?? list[0]?.id ?? null
+      store.commit('contactData/setFormData', contact.value)
+      store.dispatch('contactFields/setOwnerOptions', fields)
       // Some configs may have a typo "fileds"; support both
       const normalized = (fields?.folders ?? []).map((f) => ({
         name: f.name,
         fields: f.fields ?? f.fileds ?? [],
-      }));
-      folders.value = normalized;
-    });
+      }))
+      folders.value = normalized
+    })
 
     // Keep Vuex store in sync with local contact edits
     watch(
       contact,
       (val) => {
-        store.commit("contactData/setFormData", val);
+        store.commit('contactData/setFormData', val)
       },
       { deep: true }
-    );
+    )
 
     // Navigation helpers
     const currentIndex = computed(() => {
-      if (!selectedId.value) return 0;
+      if (!selectedId.value) return 0
       return Math.max(
         0,
         contacts.value.findIndex((c) => c.id === selectedId.value)
-      );
-    });
-    const totalContacts = computed(() => contacts.value.length);
-    const displayIndex = computed(() => currentIndex.value + 1);
-    const hasPrev = computed(() => currentIndex.value > 0);
-    const hasNext = computed(
-      () => currentIndex.value < contacts.value.length - 1
-    );
+      )
+    })
+    const totalContacts = computed(() => contacts.value.length)
+    const displayIndex = computed(() => currentIndex.value + 1)
+    const hasPrev = computed(() => currentIndex.value > 0)
+    const hasNext = computed(() => currentIndex.value < contacts.value.length - 1)
 
     function setByIndex(index) {
-      if (index < 0 || index >= contacts.value.length) return;
-      const next = contacts.value[index];
-      selectedId.value = next?.id ?? null;
-      contact.value = next ?? null;
+      if (index < 0 || index >= contacts.value.length) return
+      const next = contacts.value[index]
+      selectedId.value = next?.id ?? null
+      contact.value = next ?? null
     }
     function toPrev() {
-      if (hasPrev.value) setByIndex(currentIndex.value - 1);
+      if (hasPrev.value) setByIndex(currentIndex.value - 1)
     }
     function toNext() {
-      if (hasNext.value) setByIndex(currentIndex.value + 1);
+      if (hasNext.value) setByIndex(currentIndex.value + 1)
     }
     function onSelect() {
-      const idx = contacts.value.findIndex((c) => c.id === selectedId.value);
-      setByIndex(idx === -1 ? 0 : idx);
+      const idx = contacts.value.findIndex((c) => c.id === selectedId.value)
+      setByIndex(idx === -1 ? 0 : idx)
     }
 
     function onCall() {
       // placeholder for call click
-      console.log("Call clicked");
+      console.log('Call clicked')
     }
 
     function setContact(val) {
-      contact.value = val;
+      contact.value = val
     }
 
-    const ownerOptions = computed(
-      () => store.getters["contactFields/ownerOptions"] || []
-    );
+    const ownerOptions = computed(() => store.getters['contactFields/ownerOptions'] || [])
 
     return {
       contact,
@@ -170,9 +163,9 @@ export default defineComponent({
       toNext,
       onSelect,
       setContact,
-    };
+    }
   },
-});
+})
 </script>
 
 <style scoped>

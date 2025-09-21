@@ -4,50 +4,73 @@
       <span class="contact-header__title">Contact Details</span>
     </div>
     <div class="contact-header__spacer"></div>
-    <div class="contact-header__right" v-if="totalContacts">
+    <div v-if="totalContacts" class="contact-header__right">
       <div class="contact-header__pager">
         <span class="contact-header__count">{{ displayIndex }} of {{ totalContacts }}</span>
         <button
           class="icon-btn"
           :disabled="!hasPrev"
-          @click="$emit('prev')"
           aria-label="Previous contact"
           title="Previous"
+          @click="$emit('prev')"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 18l-6-6 6-6" stroke="var(--muted-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M15 18l-6-6 6-6"
+              stroke="var(--muted-700)"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </button>
         <button
           class="icon-btn"
           :disabled="!hasNext"
-          @click="$emit('next')"
           aria-label="Next contact"
           title="Next"
+          @click="$emit('next')"
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 6l6 6-6 6" stroke="var(--muted-700)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M9 6l6 6-6 6"
+              stroke="var(--muted-700)"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </button>
       </div>
     </div>
   </div>
-  
 </template>
 
 <script>
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: "ContactDetailsHeader",
+  name: 'ContactDetailsHeader',
   props: {
     totalContacts: { type: Number, default: 0 },
     displayIndex: { type: Number, default: 0 },
     hasPrev: { type: Boolean, default: false },
     hasNext: { type: Boolean, default: false },
   },
-  emits: ["prev", "next"],
-});
+  emits: ['prev', 'next'],
+})
 </script>
 
 <style scoped>
@@ -64,7 +87,9 @@ export default defineComponent({
   align-items: center;
   gap: 8px;
 }
-.contact-header__spacer { flex: 1; }
+.contact-header__spacer {
+  flex: 1;
+}
 
 .contact-header__title {
   font-weight: 600;
@@ -90,7 +115,10 @@ export default defineComponent({
   background: var(--component-bg-color);
   cursor: pointer;
 }
-.icon-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.icon-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
 .contact-header__select {
   border: 1px solid var(--border-color);
   border-radius: 8px;
@@ -98,5 +126,3 @@ export default defineComponent({
   background: var(--component-bg-color);
 }
 </style>
-
-
