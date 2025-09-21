@@ -34,6 +34,13 @@ yarn build
 yarn preview
 ```
 
+## Analyze bundle sizes
+
+```bash
+# Will open in a browser tab automatically
+yarn analyze
+```
+
 ## Folder structure
 
 ```text
