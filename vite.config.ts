@@ -1,10 +1,10 @@
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 import viteCompression from 'vite-plugin-compression'
+import { visualizer } from 'rollup-plugin-visualizer'
 
-export default async ({ mode }) => {
-  const isProd = mode === 'production'
-  const inspectPlugin = !isProd ? (await import('vite-plugin-inspect')).default() : undefined
+export default ({ mode }) => {
+  const shouldAnalyze = mode === 'analyze'
 
   return {
     plugins: [
@@ -25,8 +25,6 @@ export default async ({ mode }) => {
         deleteOriginFile: false,
         filter: (file) => /\.(js|mjs|json|css|html|svg)$/.test(file),
       }),
-      // dev-only inspector UI at /__inspect/
-      ...(inspectPlugin ? [inspectPlugin] : []),
     ],
     resolve: {
       alias: {
@@ -44,6 +42,20 @@ export default async ({ mode }) => {
       chunkSizeWarningLimit: 600,
       rollupOptions: {
         treeshake: 'recommended',
+        plugins: [
+          ...(shouldAnalyze
+            ? [
+                visualizer({
+                  filename: 'stats.html',
+                  title: 'Bundle Visualizer',
+                  template: 'treemap',
+                  gzipSize: true,
+                  brotliSize: true,
+                  open: true,
+                }),
+              ]
+            : []),
+        ],
         output: {
           manualChunks: {
             vue: ['vue', 'vue-router', 'vuex'],
