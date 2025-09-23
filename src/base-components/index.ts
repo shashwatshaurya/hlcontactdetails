@@ -7,13 +7,3 @@ import HlInput from './Input.vue'
 import HlSelect from './Select.vue'
 
 export { HlAvatar, HlButton, HlTextPost, HlCard, HlTags, HlInput, HlSelect }
-
-export default {
-  HlAvatar,
-  HlButton,
-  HlTextPost,
-  HlCard,
-  HlTags,
-  HlInput,
-  HlSelect,
-}
